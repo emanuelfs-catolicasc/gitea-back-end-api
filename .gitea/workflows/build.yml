@@ -17,9 +17,9 @@ jobs:
         run: |
           docker build -t my-express-api:latest .
 
-      - name: Test image
+      - name: Test Docker image
         run: |
-          docker run --rm -d -p 3001:3001 my-express-api:latest
+          docker run --rm -d -p 3001:3001 --name test-api my-express-api:latest
           sleep 5
           curl -f http://localhost:3001/ || exit 1
-          docker stop $(docker ps -q --filter "ancestor=my-express-api:latest")
+          docker stop test-api
