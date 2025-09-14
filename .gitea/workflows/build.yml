@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: Checkout repository
         run: |
-          git clone --branch master https://pipeline:pipeline123456@gitea:3000/emanuel.ferreira/back-end-api.git .
+          git clone --branch master http://pipeline:pipeline123456@server:3000/emanuel.ferreira/back-end-api.git .
 
       - name: Build Docker image
         run: |
