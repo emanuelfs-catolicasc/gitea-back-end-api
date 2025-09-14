@@ -1,0 +1,21 @@
+{
+    "name": "back-end-api",
+    "version": "1.0.0",
+    "description": "",
+    "main": "server.js",
+    "scripts": {
+        "dev": "nodemon ./server.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "http://localhost:3000/emanuel.ferreira/back-end-api.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "nodemon": "^3.1.10"
+    },
+    "dependencies": {
+        "express": "^5.1.0"
+    }
+}
