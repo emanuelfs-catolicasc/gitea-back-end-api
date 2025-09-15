@@ -1,5 +1,5 @@
 # Base image Node.js
-FROM node:22-alpine
+FROM registry-docker.weg.net/node:22-alpine
 
 # Cria diretório da aplicação
 WORKDIR /app
