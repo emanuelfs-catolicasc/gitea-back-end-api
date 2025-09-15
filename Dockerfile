@@ -8,7 +8,7 @@ WORKDIR /app
 COPY package*.json ./
 
 RUN npm config set registry https://nexus3.weg.net/repository/npm-group/; \
-    npm config set //nexus3.weg.net/repository/npm-group/:_auth $(echo -n "gitlabnexus:bxm0CD9Ho6XZzeYa-f2R" | openssl base64);
+    npm config set //nexus3.weg.net/repository/npm-group/:_auth $(echo -n "$DOCKER_USERNAME:$DOCKER_PASSWORD" | openssl base64);
 
 # Instala dependências
 RUN npm ci
