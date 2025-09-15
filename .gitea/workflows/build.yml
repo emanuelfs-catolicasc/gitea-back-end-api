@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: Checkout repository
         run: |
-          git clone --branch master http://pipeline:pipeline123456@server:3000/emanuel.ferreira/back-end-api.git .
+          git clone --branch master http://"${{ secrets.ACTION_USERNAME }}":"${{ secrets.ACTION_PASSWORD }}"@"${{ secrets.REPOSITORY_PATH }}" .
 
       - name: Docker login
         run: echo "${{ secrets.REGISTRY_PASSWORD }}" | docker login registry-docker.weg.net -u "${{ secrets.REGISTRY_USERNAME }}" --password-stdin
