@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: Checkout repository
         run: |
-          git clone --branch master http://"${{ secrets.ACTION_USERNAME }}":"${{ secrets.ACTION_PASSWORD }}"@"${{ secrets.BASE_PATH }}"/"${{ gitea.repository }}".git .
+          git clone --branch master http://"${{ secrets.ACTION_USERNAME }}":"${{ secrets.ACTION_PASSWORD }}"@"${{ secrets.BASE_PATH_SERVER }}"/"${{ gitea.repository }}".git .
 
       - name: Docker login
         run: echo "${{ secrets.REGISTRY_PASSWORD }}" | docker login registry-docker.weg.net -u "${{ secrets.REGISTRY_USERNAME }}" --password-stdin
@@ -22,11 +22,4 @@ jobs:
           docker build \
           --build-arg REGISTRY_USERNAME=${{ secrets.REGISTRY_USERNAME }} \
           --build-arg REGISTRY_PASSWORD=${{ secrets.REGISTRY_PASSWORD }} \
-          -t registry-docker.weg.net/${{ gitea.repository }}:runid${{ gitea.run_id }} .
-
-      # - name: Test Docker image
-      #   run: |
-      #     docker run --rm -d -p 3001:3001 --name test-api my-express-api:latest
-      #     sleep 5
-      #     curl -f http://localhost:3001/ || exit 1
-      #     docker stop test-api
+          -t ${{ secrets.BASE_PATH_REGISTRY }}/${{ gitea.repository }}:runid${{ gitea.run_id }} .
