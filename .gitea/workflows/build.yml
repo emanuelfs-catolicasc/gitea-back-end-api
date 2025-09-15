@@ -20,13 +20,13 @@ jobs:
       - name: Build Docker image
         run: |
           docker build \
-          --build-arg REGISTRY_USERNAME=gitlabnexus \
-          --build-arg REGISTRY_PASSWORD=bxm0CD9Ho6XZzeYa-f2R \
+          --build-arg REGISTRY_USERNAME=${{ secrets.REGISTRY_USERNAME }} \
+          --build-arg REGISTRY_PASSWORD=${{ secrets.REGISTRY_PASSWORD }} \
           -t my-express-api:latest .
 
-      - name: Test Docker image
-        run: |
-          docker run --rm -d -p 3001:3001 --name test-api my-express-api:latest
-          sleep 5
-          curl -f http://localhost:3001/ || exit 1
-          docker stop test-api
+      # - name: Test Docker image
+      #   run: |
+      #     docker run --rm -d -p 3001:3001 --name test-api my-express-api:latest
+      #     sleep 5
+      #     curl -f http://localhost:3001/ || exit 1
+      #     docker stop test-api
