@@ -16,7 +16,7 @@ RUN npm config set registry https://nexus3.weg.net/repository/npm-group/; \
 RUN npm ci
 
 # Copia código fonte
-COPY server .
+COPY server.js .
 
 # Expõe porta
 EXPOSE 3001
