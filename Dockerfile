@@ -1,8 +1,8 @@
-ARG REGISTRY_USERNAME
-ARG REGISTRY_PASSWORD
-
 # Base image Node.js
 FROM registry-docker.weg.net/node:22-alpine
+
+ARG REGISTRY_USERNAME
+ARG REGISTRY_PASSWORD
 
 # Cria diretório da aplicação
 WORKDIR /app
