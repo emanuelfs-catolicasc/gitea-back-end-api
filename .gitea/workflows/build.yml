@@ -19,7 +19,10 @@ jobs:
 
       - name: Build Docker image
         run: |
+          DOCKER_IMAGE="${{ secrets.BASE_PATH_REGISTRY }}/${{ gitea.repository }}:runid${{ gitea.run_id }}"
+          echo "DOCKER_IMAGE=$DOCKER_IMAGE"
           docker build \
           --build-arg REGISTRY_USERNAME=${{ secrets.REGISTRY_USERNAME }} \
           --build-arg REGISTRY_PASSWORD=${{ secrets.REGISTRY_PASSWORD }} \
-          -t ${{ secrets.BASE_PATH_REGISTRY }}/${{ gitea.repository }}:runid${{ gitea.run_id }} .
+          -t $DOCKER_IMAGE .
+           docker push $DOCKER_IMAGE
