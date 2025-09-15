@@ -1,3 +1,6 @@
+ARG DOCKER_USERNAME
+ARG DOCKER_PASSWORD
+
 # Base image Node.js
 FROM registry-docker.weg.net/node:22-alpine
 
@@ -10,7 +13,7 @@ COPY package*.json ./
 RUN apk add --no-cache openssl
 
 RUN npm config set registry https://nexus3.weg.net/repository/npm-group/; \
-    npm config set //nexus3.weg.net/repository/npm-group/:_auth $(echo -n "gitlabnexus:bxm0CD9Ho6XZzeYa-f2R" | openssl base64);
+    npm config set //nexus3.weg.net/repository/npm-group/:_auth $(echo -n "$DOCKER_USERNAME:$DOCKER_PASSWORD" | openssl base64);
 
 # Instala dependências
 RUN npm ci
