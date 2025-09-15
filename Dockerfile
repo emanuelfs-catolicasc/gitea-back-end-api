@@ -25,4 +25,4 @@ COPY server.js .
 EXPOSE 3001
 
 # Comando padrão
-CMD ["npm", "start:prod"]
+CMD ["npm", "start:prod"] 
