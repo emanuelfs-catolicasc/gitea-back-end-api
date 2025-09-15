@@ -1,9 +1,6 @@
 name: Build Express API Docker
 
 on:
-  workflow_dispatch:
-
-on:
   push:
     branches:
       - master
