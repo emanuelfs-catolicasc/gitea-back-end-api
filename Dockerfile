@@ -10,8 +10,7 @@ WORKDIR /app
 # Copia package.json e package-lock.json
 COPY package*.json ./
 
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.edge.kernel.org/g' /etc/apk/repositories \
-    && apk add --no-cache openssl
+RUN apk add --no-cache openssl 
 
 RUN npm config set registry https://nexus3.weg.net/repository/npm-group/; \
     npm config set //nexus3.weg.net/repository/npm-group/:_auth $(echo -n "$REGISTRY_USERNAME:$REGISTRY_PASSWORD" | openssl base64);
