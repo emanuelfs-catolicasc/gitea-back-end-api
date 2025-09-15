@@ -22,7 +22,7 @@ jobs:
           docker build \
           --build-arg REGISTRY_USERNAME=${{ secrets.REGISTRY_USERNAME }} \
           --build-arg REGISTRY_PASSWORD=${{ secrets.REGISTRY_PASSWORD }} \
-          -t my-express-api:latest .
+          -t registry-docker.weg.net/${{ gitea.repository }}:${{ gitea.run_id }} .
 
       # - name: Test Docker image
       #   run: |
