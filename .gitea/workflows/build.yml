@@ -25,4 +25,5 @@ jobs:
           --build-arg REGISTRY_USERNAME=${{ secrets.REGISTRY_USERNAME }} \
           --build-arg REGISTRY_PASSWORD=${{ secrets.REGISTRY_PASSWORD }} \
           -t $DOCKER_IMAGE .
-           docker push $DOCKER_IMAGE
+          docker login ${{ secrets.BASE_PATH_REGISTRY }} -u ${{ secrets.ACTION_USERNAME }} -p ${{ secrets.ACTION_PASSWORD }}
+          docker push $DOCKER_IMAGE
