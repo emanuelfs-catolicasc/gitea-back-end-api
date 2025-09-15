@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: Checkout repository
         run: |
-          git clone --branch master http://"${{ secrets.ACTION_USERNAME }}":"${{ secrets.ACTION_PASSWORD }}"@"${{ secrets.REPOSITORY_PATH }}" .
+          git clone --branch master http://"${{ secrets.ACTION_USERNAME }}":"${{ secrets.ACTION_PASSWORD }}"@"${{ secrets.BASE_PATH }}"/"${{ gitea.repository }}".git .
 
       - name: Docker login
         run: echo "${{ secrets.REGISTRY_PASSWORD }}" | docker login registry-docker.weg.net -u "${{ secrets.REGISTRY_USERNAME }}" --password-stdin
