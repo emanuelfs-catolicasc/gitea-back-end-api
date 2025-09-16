@@ -12,13 +12,12 @@ COPY package*.json ./
 
 # RUN apk add --no-cache openssl
 
-# RUN npm config set registry https://nexus3.weg.net/repository/npm-group/; \
+RUN npm config set registry https://nexus3.weg.net/repository/npm-group/; \
+    npm config set //nexus3.weg.net/repository/npm-group/:_auth $(echo -n "$REGISTRY_USERNAME:$REGISTRY_PASSWORD" | openssl base64);
 #     npm config set //nexus3.weg.net/repository/npm-group/:_auth $(echo -n "$REGISTRY_USERNAME:$REGISTRY_PASSWORD" | base64);
-    # npm config set //nexus3.weg.net/repository/npm-group/:_auth $(echo -n "$REGISTRY_USERNAME:$REGISTRY_PASSWORD" | openssl base64);
 
 # Instala dependências
-# RUN npm ci
-RUN npm i
+RUN npm ci
 
 # Copia código fonte
 COPY server.js .
