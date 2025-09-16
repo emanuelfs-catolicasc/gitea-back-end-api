@@ -17,7 +17,8 @@ RUN apk add --no-cache openssl
     # npm config set //nexus3.weg.net/repository/npm-group/:_auth $(echo -n "$REGISTRY_USERNAME:$REGISTRY_PASSWORD" | openssl base64);
 
 # Instala dependências
-RUN npm ci
+# RUN npm ci
+RUN npm i
 
 # Copia código fonte
 COPY server.js .
