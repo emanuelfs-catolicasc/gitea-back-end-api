@@ -1,4 +1,4 @@
-FROM registry-docker.weg.net/node:22-alpine
+FROM node:22-alpine
 
 WORKDIR /app
 
