@@ -15,10 +15,10 @@ jobs:
           git clone --branch master http://"${{ secrets.ACTION_USERNAME }}":"${{ secrets.ACTION_PASSWORD }}"@"${{ secrets.BASE_PATH_SERVER }}"/"${{ gitea.repository }}".git .
 
       - name: Docker login
-        run: echo "${{ secrets.REGISTRY_PASSWORD }}" | docker login registry-docker.weg.net -u "${{ secrets.REGISTRY_USERNAME }}" --password-stdin
+        run: echo "${{ secrets.ACTION_PASSWORD }}" | docker login ${{ secrets.BASE_PATH_REGISTRY }} -u "${{ secrets.ACTION_USERNAME }}" --password-stdin
 
       - name: Build Docker image
         run: |
           DOCKER_IMAGE="${{ secrets.BASE_PATH_REGISTRY }}/${{ gitea.repository }}:runid${{ gitea.run_id }}"
-          docker build --build-arg REGISTRY_USERNAME=${{ secrets.REGISTRY_USERNAME }} --build-arg REGISTRY_PASSWORD=${{ secrets.REGISTRY_PASSWORD }} -t $DOCKER_IMAGE .
-          # docker push $DOCKER_IMAGE
+          docker build -t $DOCKER_IMAGE .
+          docker push $DOCKER_IMAGE
