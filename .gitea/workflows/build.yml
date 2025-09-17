@@ -21,6 +21,6 @@ jobs:
       - name: Criando e publicando a imagem Docker, no registry do Gitea
         run: |
           DOCKER_IMAGE="${{ secrets.BASE_PATH_REGISTRY }}/${{ gitea.repository }}:runid${{ gitea.run_id }}"
-          echo DOCKER_IMAGE
+          echo $DOCKER_IMAGE
           docker build -t $DOCKER_IMAGE .
           docker push $DOCKER_IMAGE
