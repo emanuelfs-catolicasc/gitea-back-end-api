@@ -11,12 +11,8 @@ jobs:
     container:
       image: node:22-alpine
     steps:
-      - name: Cloning Repository
-        run: |
-          git clone --branch master http://"${{ secrets.ACTION_USERNAME }}":"${{ secrets.ACTION_PASSWORD }}"@"${{ secrets.BASE_PATH_SERVER }}"/"${{ gitea.repository }}".git .
-          echo http://"${{ secrets.ACTION_USERNAME }}":"${{ secrets.ACTION_PASSWORD }}"@"${{ secrets.BASE_PATH_SERVER }}"/"${{ gitea.repository }}".git
-
       - name: Running Tests
+        uses: actions/checkout@v4
         run: |
           npm ci
           npm run test
