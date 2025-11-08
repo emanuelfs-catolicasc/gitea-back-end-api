@@ -8,12 +8,10 @@ on:
 jobs:
   test:
     runs-on: [docker]
-    container:
-      image: node:22-alpine
     steps:
       - name: Installing Git
         run: |
-          apk add --no-cache git
+          apk add --no-cache node:22
 
       - name: Cloning Repository
         run: |
