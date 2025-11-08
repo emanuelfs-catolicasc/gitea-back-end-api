@@ -11,11 +11,9 @@ jobs:
     container:
       image: node:22-alpine
     steps:
-      - name: Running Tests
-        uses: actions/checkout@v4
-        run: |
-          npm ci
-          npm run test
+      - uses: actions/checkout@v4
+      - run: npm ci
+      - run: npm test
   
   build:
     runs-on: [docker]
