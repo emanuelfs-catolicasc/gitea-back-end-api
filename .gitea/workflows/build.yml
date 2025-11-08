@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Installing Node
         run: |
-          apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community nodejs-current npm
+          apk add nodejs-current npm
 
       - name: Cloning Repository
         run: |
