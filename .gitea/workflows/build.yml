@@ -6,20 +6,22 @@ on:
       - master
 
 jobs:
+  test:
+    runs-on: [docker]
+    container:
+      image: node:22-alpine
+    steps:
+      - name: Running Tests
+        run: |
+          npm ci
+          npm run test
   build:
     runs-on: [docker]
-
     steps:
       - name: Cloning Repository
         run: |
           git clone --branch master http://"${{ secrets.ACTION_USERNAME }}":"${{ secrets.ACTION_PASSWORD }}"@"${{ secrets.BASE_PATH_SERVER }}"/"${{ gitea.repository }}".git .
           echo http://"${{ secrets.ACTION_USERNAME }}":"${{ secrets.ACTION_PASSWORD }}"@"${{ secrets.BASE_PATH_SERVER }}"/"${{ gitea.repository }}".git
-
-      - name: Running Tests
-        run: |
-          docker run --rm -v "$PWD":/app -w /app node:22-alpine sh -c "
-          npm ci
-          npm run test
 
       - name: Registry Authentication
         run: echo "${{ secrets.ACTION_PASSWORD }}" | docker login ${{ secrets.BASE_PATH_REGISTRY }} -u "${{ secrets.ACTION_USERNAME }}" --password-stdin
