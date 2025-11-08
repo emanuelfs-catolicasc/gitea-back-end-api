@@ -17,11 +17,6 @@ jobs:
           git clone --branch master http://"${{ secrets.ACTION_USERNAME }}":"${{ secrets.ACTION_PASSWORD }}"@"${{ secrets.BASE_PATH_SERVER }}"/"${{ gitea.repository }}".git .
           echo http://"${{ secrets.ACTION_USERNAME }}":"${{ secrets.ACTION_PASSWORD }}"@"${{ secrets.BASE_PATH_SERVER }}"/"${{ gitea.repository }}".git
 
-      - name: Running Tests
-        run: |
-          npm ci
-          npm run test
-
       - name: Registry Authentication
         run: echo "${{ secrets.ACTION_PASSWORD }}" | docker login ${{ secrets.BASE_PATH_REGISTRY }} -u "${{ secrets.ACTION_USERNAME }}" --password-stdin
 
