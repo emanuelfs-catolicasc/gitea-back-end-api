@@ -5,6 +5,7 @@
     "main": "server.js",
     "scripts": {
         "dev": "nodemon ./server.js",
+        "test": "jest",
         "start:prod": "NODE_ENV=production TZ='America/Sao_Paulo' node server.js"
     },
     "repository": {
@@ -14,6 +15,7 @@
     "author": "",
     "license": "ISC",
     "devDependencies": {
+        "jest": "^30.2.0",
         "nodemon": "^3.1.10"
     },
     "dependencies": {
