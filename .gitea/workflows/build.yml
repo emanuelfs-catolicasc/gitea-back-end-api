@@ -6,8 +6,20 @@ on:
       - master
 
 jobs:
+  test-network:
+    runs-on: [docker]
+    container:
+      image: alpine
+    steps:
+      - name: Test network visibility
+        run: |
+          apk add --no-cache curl
+          echo "Trying to reach Gitea..."
+          curl -v http://server:3000 || echo "Gitea not reachable"
+
   test:
     runs-on: [docker]
+    needs: test-network
     container:
       image: node:22-alpine
     steps:
