@@ -1,4 +1,4 @@
-name: Build Express API Docker
+name: Calculator API Pipeline
 
 on:
   push:
@@ -10,15 +10,20 @@ jobs:
     runs-on: [docker]
 
     steps:
-      - name: Fazendo download do repositório no Gitea
+      - name: Cloning Repository
         run: |
           git clone --branch master http://"${{ secrets.ACTION_USERNAME }}":"${{ secrets.ACTION_PASSWORD }}"@"${{ secrets.BASE_PATH_SERVER }}"/"${{ gitea.repository }}".git .
           echo http://"${{ secrets.ACTION_USERNAME }}":"${{ secrets.ACTION_PASSWORD }}"@"${{ secrets.BASE_PATH_SERVER }}"/"${{ gitea.repository }}".git
 
-      - name: Fazendo login no registry do Gitea
+      - name: Running Tests
+        run: |
+          npm i
+          npm run test
+
+      - name: Registry Authentication
         run: echo "${{ secrets.ACTION_PASSWORD }}" | docker login ${{ secrets.BASE_PATH_REGISTRY }} -u "${{ secrets.ACTION_USERNAME }}" --password-stdin
 
-      - name: Criando e publicando a imagem Docker, no registry do Gitea
+      - name: Building Docker Image
         run: |
           DOCKER_IMAGE="${{ secrets.BASE_PATH_REGISTRY }}/${{ gitea.repository }}:runid${{ gitea.run_id }}"
           echo $DOCKER_IMAGE
