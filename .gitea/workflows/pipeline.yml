@@ -16,7 +16,7 @@ jobs:
 
       - name: Installing Node
         run: |
-          apk add --no-cache nodejs npm
+          ping google.com 
 
       - name: Running Tests
         run: |
