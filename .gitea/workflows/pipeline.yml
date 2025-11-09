@@ -21,12 +21,12 @@ jobs:
       #     apk update
       #     apk add --no-cache nodejs-current npm
 
-      - name: Installing Tools (Git + Curl)
-        run: |
-          apk add --no-cache bash git curl || {
-            echo "❌ Falha ao instalar pacotes base. Verifique conectividade com repositórios Alpine."
-            exit 1
-          }
+      # - name: Installing Tools (Git + Curl)
+      #   run: |
+      #     apk add --no-cache bash git curl || {
+      #       echo "❌ Falha ao instalar pacotes base. Verifique conectividade com repositórios Alpine."
+      #       exit 1
+      #     }
 
       - name: Installing Node.js 22 (via apk, com fallback binário)
         run: |
