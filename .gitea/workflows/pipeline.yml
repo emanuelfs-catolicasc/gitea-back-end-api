@@ -7,7 +7,7 @@ on:
 
 jobs:
   test:
-    runs-on: [docker]
+    runs-on: [docker-build]
     container:
       image: node:22-bookworm
     steps:
@@ -26,7 +26,7 @@ jobs:
           npm run test
   
   build:
-    runs-on: [docker]
+    runs-on: [docker-build]
     needs: test
     steps:
       - name: Cloning Repository
