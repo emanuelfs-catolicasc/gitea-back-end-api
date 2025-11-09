@@ -29,11 +29,11 @@ jobs:
     runs-on: [docker-build]
     needs: test
     container:
-      image: docker
+      image: docker:25.0.3-dind
     steps:
       - name: Installing Git
         run: |
-          apt-get update && apt-get install -y git bash openssh-client && apt-get clean
+          apk add --no-cache git bash openssh-client
 
       - name: Cloning Repository
         run: |
