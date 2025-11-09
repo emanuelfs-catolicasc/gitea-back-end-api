@@ -51,5 +51,12 @@ jobs:
 
       - name: Getting Docker Image
         run: |
-          DOCKER_IMAGE="${{ secrets.BASE_PATH_REGISTRY }}/${{ gitea.repository }}:runid${{ gitea.run_id }}"
-          echo $DOCKER_IMAGE
+          export DOCKER_IMAGE="${{ secrets.BASE_PATH_REGISTRY }}/${{ gitea.repository }}:runid${{ gitea.run_id }}"
+          echo "DOCKER_IMAGE=$DOCKER_IMAGE" >> .env
+
+      - name: Pulling Docker Image
+        run: |
+          source .env
+          docker pull "$DOCKER_IMAGE"
+          
+      
