@@ -9,7 +9,7 @@ jobs:
   test:
     runs-on: [docker-build]
     container:
-      image: custom-node-ci:latest
+      image: custom-node-build:latest
     steps:
       - name: Cloning Repository
         run: |
@@ -25,7 +25,7 @@ jobs:
     runs-on: [docker-build]
     needs: test
     container:
-      image: custom-dind-ci:latest
+      image: custom-node-build:latest
     steps:
       - name: Cloning Repository
         run: |
