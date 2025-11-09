@@ -9,7 +9,7 @@ jobs:
   test:
     runs-on: [docker]
     container:
-      image: node:22-alpine
+      image: registry-docker.weg.net/node:22-bookworm
     steps:
       # - name: Cloning Repository
       #   run: |
