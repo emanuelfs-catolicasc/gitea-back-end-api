@@ -13,7 +13,7 @@ const port = 3001;
 app.use(express.json());
 
 app.get("/", (req, res) => {
-    res.send("Welcome to Calculator API V2");
+    res.send("Welcome to Calculator API");
 });
 
 app.post("/add", (req, res) => {
