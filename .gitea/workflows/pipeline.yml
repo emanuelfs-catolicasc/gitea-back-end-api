@@ -16,9 +16,6 @@ jobs:
 
       - name: Installing Node
         run: |
-          apk add --no-cache ca-certificates
-          update-ca-certificates
-          apk update
           apk add --no-cache nodejs-current npm
 
       - name: Running Tests
