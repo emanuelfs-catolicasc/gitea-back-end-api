@@ -9,9 +9,9 @@ jobs:
   test:
     runs-on: [docker]
     steps:
-      - name: Installing Node
-        run: |
-          apk add nodejs-current npm
+      # - name: Installing Node
+      #   run: |
+      #     apk add nodejs-current npm
 
       - name: Cloning Repository
         run: |
