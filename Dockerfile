@@ -6,6 +6,8 @@ COPY package*.json ./
 
 RUN npm ci
 
+COPY functions.js .
+
 COPY server.js .
 
 EXPOSE 3001
