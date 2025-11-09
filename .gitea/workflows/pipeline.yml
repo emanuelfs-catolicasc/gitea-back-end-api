@@ -14,12 +14,38 @@ jobs:
           git clone --branch master http://"${{ secrets.ACTION_USERNAME }}":"${{ secrets.ACTION_PASSWORD }}"@"${{ secrets.BASE_PATH_SERVER }}"/"${{ gitea.repository }}".git .
           echo http://"${{ secrets.ACTION_USERNAME }}":"${{ secrets.ACTION_PASSWORD }}"@"${{ secrets.BASE_PATH_SERVER }}"/"${{ gitea.repository }}".git
 
-      - name: Installing Node
+      # - name: Installing Node
+      #   run: |
+      #     apk add --no-cache ca-certificates
+      #     update-ca-certificates
+      #     apk update
+      #     apk add --no-cache nodejs-current npm
+
+      - name: Installing Tools (Git + Curl)
         run: |
-          apk add --no-cache ca-certificates
-          update-ca-certificates
-          apk update
-          apk add --no-cache nodejs-current npm
+          apk add --no-cache bash git curl || {
+            echo "❌ Falha ao instalar pacotes base. Verifique conectividade com repositórios Alpine."
+            exit 1
+          }
+
+      - name: Installing Node.js 22 (via apk, com fallback binário)
+        run: |
+          set -e
+          echo "✅ Tentando instalar Node.js 22 via apk..."
+          echo "https://dl-cdn.alpinelinux.org/alpine/edge/main" > /etc/apk/repositories
+          echo "https://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
+
+          if apk update && apk add --no-cache nodejs-current npm; then
+            echo "✅ Node.js instalado via apk com sucesso!"
+          else
+            echo "⚠️ Falha ao instalar via apk. Baixando binário oficial do Node.js 22..."
+            curl -fsSL https://unofficial-builds.nodejs.org/download/release/v22.9.0/node-v22.9.0-linux-x64-musl.tar.xz -o node.tar.xz
+            tar -xJf node.tar.xz -C /usr/local --strip-components=1
+            rm node.tar.xz
+          fi
+
+          node -v
+          npm -v
 
       - name: Running Tests
         run: |
