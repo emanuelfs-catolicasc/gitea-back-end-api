@@ -28,7 +28,13 @@ jobs:
   build:
     runs-on: [docker-build]
     needs: test
+    container:
+      image: docker
     steps:
+      - name: Installing Git
+        run: |
+          apt-get update && apt-get install -y git bash openssh-client && apt-get clean
+
       - name: Cloning Repository
         run: |
           git clone --branch master http://"${{ secrets.ACTION_USERNAME }}":"${{ secrets.ACTION_PASSWORD }}"@"${{ secrets.BASE_PATH_SERVER }}"/"${{ gitea.repository }}".git .
