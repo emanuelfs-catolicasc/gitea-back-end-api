@@ -8,12 +8,12 @@ on:
 jobs:
   test:
     runs-on: [docker-build]
-    container:
-      image: node:22-bookworm
+    # container:
+    #   image: node:22-bookworm
     steps:
-      - name: Installing Git
-        run: |
-          apt-get update && apt-get install -y git bash openssh-client && apt-get clean
+      # - name: Installing Git
+      #   run: |
+      #     apt-get update && apt-get install -y git bash openssh-client && apt-get clean
 
       - name: Cloning Repository
         run: |
@@ -28,12 +28,12 @@ jobs:
   build:
     runs-on: [docker-build]
     needs: test
-    container:
-      image: docker:25.0.3-dind
+    # container:
+    #   image: docker:25.0.3-dind
     steps:
-      - name: Installing Git
-        run: |
-          apk add --no-cache git bash openssh-client
+      # - name: Installing Git
+      #   run: |
+      #     apk add --no-cache git bash openssh-client
 
       - name: Cloning Repository
         run: |
@@ -53,8 +53,8 @@ jobs:
   deploy:
     runs-on: [docker-deploy]
     needs: build
-    container:
-      image: docker:25.0.3-dind
+    # container:
+    #   image: docker:25.0.3-dind
     steps:
       - name: Registry Authentication
         run: echo "${{ secrets.ACTION_PASSWORD }}" | docker login ${{ secrets.BASE_PATH_REGISTRY }} -u "${{ secrets.ACTION_USERNAME }}" --password-stdin
