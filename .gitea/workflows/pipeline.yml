@@ -62,10 +62,11 @@ jobs:
       - name: Running Docker Container
         run: |
           source .env
-          docker rm -f calculator-api || true
-          docker run -d \
-            --name calculator-api \
-            --network gitea \
-            -p 3001:3001 \
-            --restart always \
-            "$DOCKER_IMAGE"
+          docker run --rm -it -p 3001:3001 "$DOCKER_IMAGE"
+          # docker rm -f calculator-api || true
+          # docker run -d \
+          #   --name calculator-api \
+          #   --network gitea \
+          #   -p 3001:3001 \
+          #   --restart always \
+          #   "$DOCKER_IMAGE"
