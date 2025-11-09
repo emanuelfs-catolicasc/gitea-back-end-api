@@ -16,9 +16,7 @@ jobs:
 
       - name: Installing Node
         run: |
-          echo "http://alpine.global.ssl.fastly.net/alpine/edge/main" > /etc/apk/repositories
-          echo "http://alpine.global.ssl.fastly.net/alpine/edge/community" >> /etc/apk/repositories
-          apk add --no-cache nodejs-current npm
+          apk add nodejs-current npm
 
       - name: Running Tests
         run: |
