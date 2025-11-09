@@ -9,13 +9,8 @@ jobs:
   test:
     runs-on: [docker-build]
     container:
-      # image: node:22-bookworm
       image: custom-node-ci:latest
     steps:
-      # - name: Installing Git
-      #   run: |
-      #     apt-get update && apt-get install -y git bash openssh-client && apt-get clean
-
       - name: Cloning Repository
         run: |
           git clone --branch master http://"${{ secrets.ACTION_USERNAME }}":"${{ secrets.ACTION_PASSWORD }}"@"${{ secrets.BASE_PATH_SERVER }}"/"${{ gitea.repository }}".git .
@@ -30,13 +25,8 @@ jobs:
     runs-on: [docker-build]
     needs: test
     container:
-    #   image: docker:25.0.3-dind
       image: custom-dind-ci:latest
     steps:
-      # - name: Installing Git
-      #   run: |
-      #     apk add --no-cache git bash openssh-client
-
       - name: Cloning Repository
         run: |
           git clone --branch master http://"${{ secrets.ACTION_USERNAME }}":"${{ secrets.ACTION_PASSWORD }}"@"${{ secrets.BASE_PATH_SERVER }}"/"${{ gitea.repository }}".git .
@@ -55,8 +45,8 @@ jobs:
   deploy:
     runs-on: [docker-deploy]
     needs: build
-    # container:
-    #   image: docker:25.0.3-dind
+    container:
+      image: docker:25.0.3-dind
     steps:
       - name: Registry Authentication
         run: echo "${{ secrets.ACTION_PASSWORD }}" | docker login ${{ secrets.BASE_PATH_REGISTRY }} -u "${{ secrets.ACTION_USERNAME }}" --password-stdin
