@@ -69,6 +69,10 @@ jobs:
           source .env
           docker pull "$DOCKER_IMAGE"
 
+      - name: Stopping Old Container
+        run: |
+          docker ps -aq --filter "name=calculator-api" | xargs -r docker rm -f
+
       - name: Running Docker Container
         run: |
           source .env
