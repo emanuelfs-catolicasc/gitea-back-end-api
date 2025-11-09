@@ -7,13 +7,13 @@ on:
 
 jobs:
   test:
-    runs-on: node-ci
-    # container:
-    #   image: node:22-alpine
+    runs-on: [docker]
+    container:
+      image: node:22-bookworm
     steps:
-      # - name: Installing Node
-      #   run: |
-      #     apk add nodejs-current npm
+      - name: Installing Git
+        run: |
+          apt-get update && apt-get install -y git bash openssh-client && apt-get clean
 
       - name: Cloning Repository
         run: |
