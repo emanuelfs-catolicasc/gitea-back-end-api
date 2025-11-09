@@ -7,7 +7,7 @@ on:
 
 jobs:
   test:
-    runs-on: [docker]
+    runs-on: node-ci
     container:
       image: node:22-alpine
     steps:
@@ -16,9 +16,10 @@ jobs:
       #     apk add nodejs-current npm
 
       - name: Cloning Repository
-        run: |
-          git clone --branch master http://"${{ secrets.ACTION_USERNAME }}":"${{ secrets.ACTION_PASSWORD }}"@"${{ secrets.BASE_PATH_SERVER }}"/"${{ gitea.repository }}".git .
-          echo http://"${{ secrets.ACTION_USERNAME }}":"${{ secrets.ACTION_PASSWORD }}"@"${{ secrets.BASE_PATH_SERVER }}"/"${{ gitea.repository }}".git
+        uses: actions/checkout@v3
+        # run: |
+        #   git clone --branch master http://"${{ secrets.ACTION_USERNAME }}":"${{ secrets.ACTION_PASSWORD }}"@"${{ secrets.BASE_PATH_SERVER }}"/"${{ gitea.repository }}".git .
+        #   echo http://"${{ secrets.ACTION_USERNAME }}":"${{ secrets.ACTION_PASSWORD }}"@"${{ secrets.BASE_PATH_SERVER }}"/"${{ gitea.repository }}".git
 
       - name: Running Tests
         run: |
