@@ -8,8 +8,8 @@ on:
 jobs:
   test:
     runs-on: [docker]
-    container:
-      image: node:22-bookworm
+    # container:
+    #   image: node:22-bookworm
     steps:
       - name: Installing Git
         run: |
