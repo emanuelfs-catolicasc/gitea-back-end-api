@@ -25,7 +25,7 @@ jobs:
     runs-on: [docker-build]
     needs: test
     container:
-      image: custom-node-build:latest
+      image: custom-docker-build:latest
     steps:
       - name: Cloning Repository
         run: |
