@@ -8,8 +8,9 @@ on:
 jobs:
   test:
     runs-on: [docker-build]
-    # container:
-    #   image: node:22-bookworm
+    container:
+      # image: node:22-bookworm
+      image: custom-node-ci:latest
     steps:
       # - name: Installing Git
       #   run: |
@@ -28,8 +29,9 @@ jobs:
   build:
     runs-on: [docker-build]
     needs: test
-    # container:
+    container:
     #   image: docker:25.0.3-dind
+      image: custom-dind-ci:latest
     steps:
       # - name: Installing Git
       #   run: |
