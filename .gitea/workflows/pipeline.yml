@@ -8,15 +8,17 @@ on:
 jobs:
   test:
     runs-on: [docker]
+    container:
+      image: node:22-alpine
     steps:
-      - name: Cloning Repository
-        run: |
-          git clone --branch master http://"${{ secrets.ACTION_USERNAME }}":"${{ secrets.ACTION_PASSWORD }}"@"${{ secrets.BASE_PATH_SERVER }}"/"${{ gitea.repository }}".git .
-          echo http://"${{ secrets.ACTION_USERNAME }}":"${{ secrets.ACTION_PASSWORD }}"@"${{ secrets.BASE_PATH_SERVER }}"/"${{ gitea.repository }}".git
+      # - name: Cloning Repository
+      #   run: |
+      #     git clone --branch master http://"${{ secrets.ACTION_USERNAME }}":"${{ secrets.ACTION_PASSWORD }}"@"${{ secrets.BASE_PATH_SERVER }}"/"${{ gitea.repository }}".git .
+      #     echo http://"${{ secrets.ACTION_USERNAME }}":"${{ secrets.ACTION_PASSWORD }}"@"${{ secrets.BASE_PATH_SERVER }}"/"${{ gitea.repository }}".git
 
-      - name: Installing Node
-        run: |
-          apk add nodejs-current npm
+      # - name: Installing Node
+      #   run: |
+      #     apk add nodejs-current npm
 
       - name: Running Tests
         run: |
