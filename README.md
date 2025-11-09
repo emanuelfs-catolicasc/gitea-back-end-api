@@ -6,7 +6,7 @@ Documentação do projeto de exemplo.
 
 * ACTION_USERNAME=pipeline
 * ACTION_PASSWORD=pipeline123456
-* BASE_PATH_SERVER=server:3000
+* BASE_PATH_SERVER=host.docker.internal:3000
 * BASE_PATH_REGISTRY=localhost:3000
 
 ## Comando para subir com o Docker, utilizando uma imagem do Gitea.
