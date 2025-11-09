@@ -16,7 +16,7 @@ jobs:
 
       - name: Installing Node
         run: |
-          apk add nodejs-current npm
+          apk add --no-cache nodejs npm
 
       - name: Running Tests
         run: |
