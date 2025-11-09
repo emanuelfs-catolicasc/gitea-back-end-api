@@ -14,38 +14,26 @@ jobs:
           git clone --branch master http://"${{ secrets.ACTION_USERNAME }}":"${{ secrets.ACTION_PASSWORD }}"@"${{ secrets.BASE_PATH_SERVER }}"/"${{ gitea.repository }}".git .
           echo http://"${{ secrets.ACTION_USERNAME }}":"${{ secrets.ACTION_PASSWORD }}"@"${{ secrets.BASE_PATH_SERVER }}"/"${{ gitea.repository }}".git
 
-      # - name: Installing Node
-      #   run: |
-      #     apk add --no-cache ca-certificates
-      #     update-ca-certificates
-      #     apk update
-      #     apk add --no-cache nodejs-current npm
-
-      # - name: Installing Tools (Git + Curl)
-      #   run: |
-      #     apk add --no-cache bash git curl || {
-      #       echo "❌ Falha ao instalar pacotes base. Verifique conectividade com repositórios Alpine."
-      #       exit 1
-      #     }
-
-      - name: Installing Node.js 22 (via apk, com fallback binário)
+      - name: Installing Node.js 22 (via direct download, sem depender de apk)
         run: |
           set -e
-          echo "✅ Tentando instalar Node.js 22 via apk..."
-          echo "https://dl-cdn.alpinelinux.org/alpine/edge/main" > /etc/apk/repositories
-          echo "https://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
+          echo "⚙️ Baixando Node.js 22 diretamente (sem usar repositórios APK)..."
 
-          if apk update && apk add --no-cache nodejs-current npm; then
-            echo "✅ Node.js instalado via apk com sucesso!"
+          # Verifica se wget está disponível, caso contrário tenta usar busybox
+          if command -v wget >/dev/null 2>&1; then
+            echo "✅ wget encontrado. Baixando Node.js..."
+            wget -q https://unofficial-builds.nodejs.org/download/release/v22.9.0/node-v22.9.0-linux-x64-musl.tar.xz -O node.tar.xz
           else
-            echo "⚠️ Falha ao instalar via apk. Baixando binário oficial do Node.js 22..."
-            curl -fsSL https://unofficial-builds.nodejs.org/download/release/v22.9.0/node-v22.9.0-linux-x64-musl.tar.xz -o node.tar.xz
-            tar -xJf node.tar.xz -C /usr/local --strip-components=1
-            rm node.tar.xz
+            echo "⚠️ wget não encontrado. Tentando via busybox..."
+            busybox wget -q https://unofficial-builds.nodejs.org/download/release/v22.9.0/node-v22.9.0-linux-x64-musl.tar.xz -O node.tar.xz
           fi
+
+          tar -xJf node.tar.xz -C /usr/local --strip-components=1
+          rm node.tar.xz
 
           node -v
           npm -v
+          echo "✅ Node.js instalado com sucesso!"
 
       - name: Running Tests
         run: |
