@@ -16,13 +16,16 @@ jobs:
 
       - name: Installing Node
         run: |
-          apk add --no-cache curl bash git
-          echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories
-          echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
-          apk update
-          apk add --no-cache nodejs-current npm
-          node -v
-          npm -v
+          apk update -v
+          wget https://dl-cdn.alpinelinux.org/alpine/edge/community/x86_64/APKINDEX.tar.gz
+          nslookup dl-cdn.alpinelinux.org
+          # apk add --no-cache curl bash git
+          # echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories
+          # echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
+          # apk update
+          # apk add --no-cache nodejs-current npm
+          # node -v
+          # npm -v
 
       - name: Running Tests
         run: |
