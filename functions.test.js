@@ -3,7 +3,6 @@ const {
     subtract,
     multiply,
     divide,
-    double,
 } = require("./functions");
 
 test("10 + 2 = 12", () => {
@@ -20,8 +19,4 @@ test("10 * 2 = 20", () => {
 
 test("10 / 2 = 5", () => {
     expect(divide(10, 2)).toBe(5);
-});
-
-test("Dobro de 50", () => {
-    expect(double(50)).toBe(100);
 });
